@@ -1,0 +1,13 @@
+server:
+  address: 127.0.0.1
+  port: 8080
+
+spring:
+  liquibase:
+    change-log: classpath:liquibase/master.xml
+    enabled: true
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
