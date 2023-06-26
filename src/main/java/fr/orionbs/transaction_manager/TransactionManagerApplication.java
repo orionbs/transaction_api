@@ -1,13 +1,13 @@
-package fr.orionbs.transaction_api;
+package fr.orionbs.transaction_manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TransactionApiApplication {
+public class TransactionManagerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TransactionApiApplication.class, args);
+		SpringApplication.run(TransactionManagerApplication.class, args);
 	}
 
 }

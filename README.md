@@ -1,4 +1,4 @@
-# Transaction API
+# Transaction Manager
 
 ## Introduction
 
@@ -21,7 +21,7 @@ This project is made to handle user management on all my other project.
 If you just want to run this project, there is an **image** available on docker hub through this link.
 
 ```bash
-docker pull orionbs/transaction_api
+docker pull orionbs/transaction_manager
 ```
 
 The image expose the **8080** port.

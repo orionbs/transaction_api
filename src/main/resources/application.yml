@@ -5,7 +5,7 @@ server:
 spring:
   liquibase:
     change-log: classpath:liquibase/master.xml
-    enabled: true
+    enabled: false
   jpa:
     generate-ddl: false
     open-in-view: false

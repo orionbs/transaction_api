@@ -1,6 +1,8 @@
 server:
   address: 127.0.0.1
   port: 9000
+  servlet:
+    context-path: /
 
 spring:
   datasource:
@@ -10,6 +12,15 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
-    database-platform: org.hibernate.dialect.MySQL57Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
 
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
+
+logging:
+  level:
+    org.springframework.security: debug
