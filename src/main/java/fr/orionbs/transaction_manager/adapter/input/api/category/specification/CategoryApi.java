@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 
 @Tag(name = "Categories", description = "This part will help you to find the category you need.")
-@SecurityRequirement(name = "basic")
+@SecurityRequirement(name = "Google OAuth2")
 @RequestMapping(path = "categories")
 public interface CategoryApi {
 
@@ -25,7 +26,7 @@ public interface CategoryApi {
     @ApiResponse(description = "Success, you obtain all categories.", responseCode = "200")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    List<CategorySelectionResponse> getCategories();
+    List<CategorySelectionResponse> getCategories(Authentication authentication);
 
     @Operation(summary = "Obtain a category by his id.")
     @ApiResponse(description = "Success, you obtain a category.", responseCode = "200")

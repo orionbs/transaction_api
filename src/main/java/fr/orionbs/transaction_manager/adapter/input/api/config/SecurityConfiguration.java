@@ -4,26 +4,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.List;
+import java.util.UUID;
 
 @Configuration
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, UserDetailsService userDetailsService, CorsConfiguration corsConfiguration) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, CorsConfiguration corsConfiguration) throws Exception {
 
         httpSecurity.cors(httpSecurityCorsConfigurer -> {
             UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
@@ -39,18 +36,12 @@ public class SecurityConfiguration {
             authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**").permitAll();
         });
 
-        httpSecurity.httpBasic(httpSecurityHttpBasicConfigurer -> {
-            httpSecurityHttpBasicConfigurer.securityContextRepository(new RequestAttributeSecurityContextRepository());
-            httpSecurityHttpBasicConfigurer.authenticationDetailsSource(new WebAuthenticationDetailsSource());
-            httpSecurityHttpBasicConfigurer.realmName("Kingdown");
+
+        httpSecurity.oauth2Login(httpSecurityOAuth2LoginConfigurer -> {
+            httpSecurityOAuth2LoginConfigurer.successHandler(new SavedRequestAwareAuthenticationSuccessHandler());
         });
 
-        httpSecurity.sessionManagement(httpSecuritySessionManagementConfigurer -> {
-            httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-            httpSecuritySessionManagementConfigurer.maximumSessions(1);
-        });
-
-        httpSecurity.userDetailsService(userDetailsService);
+        httpSecurity.oauth2ResourceServer().jwt();
 
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
             authorizationManagerRequestMatcherRegistry.anyRequest().authenticated();
@@ -59,16 +50,21 @@ public class SecurityConfiguration {
         return httpSecurity.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
-        inMemoryUserDetailsManager.createUser(User.withUsername("user").password(passwordEncoder.encode("user")).build());
-        return inMemoryUserDetailsManager;
-    }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public ClientRegistrationRepository clientRegistrationRepository() {
+        ClientRegistration clientRegistration = ClientRegistration
+                .withRegistrationId(UUID.randomUUID().toString())
+                .clientId("90990976801-719cok681qov49minpkglva7i7ssh8js.apps.googleusercontent.com")
+                .clientSecret("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")
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .issuerUri("https://accounts.google.com")
+                .authorizationUri("https://accounts.google.com/o/oauth2/auth")
+                .tokenUri("https://oauth2.googleapis.com/token")
+                .redirectUri("https://www.getpostman.com/oauth2/callback")
+                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
+                .build();
+        return new InMemoryClientRegistrationRepository(clientRegistration);
     }
 
     @Bean
@@ -76,7 +72,11 @@ public class SecurityConfiguration {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.addAllowedOrigin("http://localhost:9000");
+        corsConfiguration.addAllowedOrigin("https://accounts.google.com");
         corsConfiguration.addAllowedOriginPattern("http://localhost:9000");
+        corsConfiguration.addAllowedOriginPattern("https://accounts.google.com");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod(HttpMethod.GET);
         return corsConfiguration;
     }
