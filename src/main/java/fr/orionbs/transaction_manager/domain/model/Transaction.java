@@ -14,7 +14,7 @@ public class Transaction {
     private LocalDateTime milestone;
     private List<Amount> amounts = new ArrayList<>();
     private List<CategoryHistory> categories = new ArrayList<>();
-    private List<Currency> currencies = new ArrayList<>();
+    private List<CurrencyHistory> currencies = new ArrayList<>();
     private List<Frequency> frequencies = new ArrayList<>();
     private User user;
 

@@ -6,4 +6,6 @@
 
     <include file="/liquibase/version/category.xml" relativeToChangelogFile="false"/>
 
+    <include file="/liquibase/version/currency.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
