@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Currency Schema -->
+    <changeSet id="currency-schema" author="Orion Beauny-Sugot">
+
+        <createTable tableName="currency">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_currency"/>
+            </column>
+            <column name="value" type="varchar(50)">
+                <constraints nullable="false" notNullConstraintName="nn_currency_value"
+                             unique="true" uniqueConstraintName="uq_currency_value"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <!-- Category Data -->
+    <changeSet id="currency-data" author="Orion Beauny-Sugot">
+
+        <insert tableName="currency" dbms="mysql">
+            <column name="value" value="EUR"/>
+        </insert>
+
+        <insert tableName="currency" dbms="mysql">
+            <column name="value" value="USD"/>
+        </insert>
+
+        <insert tableName="currency" dbms="mysql">
+            <column name="value" value="GPB"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>
