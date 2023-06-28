@@ -1,5 +1,7 @@
 package fr.orionbs.transaction_manager.domain.model;
 
 public class User {
-    private String id;
+    private Integer id;
+    private String email;
+    private String fullName;
 }
