@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Category Schema -->
+    <changeSet id="category-schema" author="Orion Beauny-Sugot">
+
+        <createTable tableName="category">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_category"/>
+            </column>
+            <column name="value" type="varchar(50)">
+                <constraints nullable="false" notNullConstraintName="nn_category_value"
+                             unique="true" uniqueConstraintName="uq_category_value"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <!-- Category Data -->
+    <changeSet id="category-data" author="Orion Beauny-Sugot">
+
+        <insert tableName="category" dbms="mysql">
+            <column name="value" value="TRANSPORT"/>
+        </insert>
+
+        <insert tableName="category" dbms="mysql">
+            <column name="value" value="RESTAURANT"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>

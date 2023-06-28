@@ -1,19 +1,19 @@
 package fr.orionbs.transaction_manager.adapter.input.api.category.specification;
 
 
+import fr.orionbs.transaction_manager.adapter.input.api.category.data.CategoryException;
 import fr.orionbs.transaction_manager.adapter.input.api.category.data.CategorySelectionResponse;
+import fr.orionbs.transaction_manager.domain.exception.UnknownCategoryException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,8 +30,13 @@ public interface CategoryApi {
 
     @Operation(summary = "Obtain a category by his id.")
     @ApiResponse(description = "Success, you obtain a category.", responseCode = "200")
+    @ApiResponse(description = "Failure, unknown category.", responseCode = "404", content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CategoryException.class))})
     @GetMapping(path = "/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    CategorySelectionResponse getCategoryById(@PathVariable Integer categoryId);
+    CategorySelectionResponse getCategoryById(@PathVariable Integer categoryId) throws UnknownCategoryException;
+
+    @ExceptionHandler(UnknownCategoryException.class)
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    CategoryException unknownCategoryException(UnknownCategoryException unknownCategoryException);
 
 }

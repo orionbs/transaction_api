@@ -3,11 +3,20 @@ server:
   port: 8080
 
 spring:
-  liquibase:
-    change-log: classpath:liquibase/master.xml
-    enabled: false
   jpa:
     generate-ddl: false
     open-in-view: false
     hibernate:
       ddl-auto: none
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://accounts.google.com
+          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true

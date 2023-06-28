@@ -13,7 +13,7 @@ public class Transaction {
     private String description;
     private LocalDateTime milestone;
     private List<Amount> amounts = new ArrayList<>();
-    private List<Category> categories = new ArrayList<>();
+    private List<CategoryHistory> categories = new ArrayList<>();
     private List<Currency> currencies = new ArrayList<>();
     private List<Frequency> frequencies = new ArrayList<>();
     private User user;

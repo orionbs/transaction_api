@@ -14,17 +14,8 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://accounts.google.com
-          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
-
-springdoc:
-  swagger-ui:
-    enabled: true
-  api-docs:
+  liquibase:
+    change-log: liquibase/master.xml
     enabled: true
 
 logging:

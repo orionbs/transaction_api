@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 @Data
 public class Frequency {
     private Integer id;
-    private FrequencyEnum frequencyEnum;
+    private FrequencyType frequencyType;
     private LocalDateTime milestone;
 }

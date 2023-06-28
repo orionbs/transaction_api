@@ -5,8 +5,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class Currency {
+public class CategoryHistory {
     private Integer id;
-    private CurrencyType currencyType;
+    private Category category;
     private LocalDateTime milestone;
 }

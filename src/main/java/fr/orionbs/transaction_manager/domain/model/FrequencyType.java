@@ -2,8 +2,10 @@ package fr.orionbs.transaction_manager.domain.model;
 
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
-public class Category {
+public class FrequencyType {
     private Integer id;
-    private CategoryEnum categoryEnum;
+    private FrequencyEnum frequencyEnum;
 }
