@@ -5,7 +5,8 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class FrequencyType {
+public class FrequencyHistory {
     private Integer id;
-    private FrequencyEnum frequencyEnum;
+    private Frequency frequency;
+    private LocalDateTime milestone;
 }

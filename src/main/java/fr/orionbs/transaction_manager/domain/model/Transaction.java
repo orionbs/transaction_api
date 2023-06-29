@@ -15,7 +15,7 @@ public class Transaction {
     private List<Amount> amounts = new ArrayList<>();
     private List<CategoryHistory> categories = new ArrayList<>();
     private List<CurrencyHistory> currencies = new ArrayList<>();
-    private List<Frequency> frequencies = new ArrayList<>();
+    private List<FrequencyHistory> frequencies = new ArrayList<>();
     private User user;
 
 }
