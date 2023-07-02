@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class CurrencySelectionResponse {
     private Integer id;
-    private String value;
+    private String code;
 }

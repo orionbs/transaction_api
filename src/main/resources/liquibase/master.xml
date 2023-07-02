@@ -8,4 +8,8 @@
 
     <include file="/liquibase/version/currency.xml" relativeToChangelogFile="false"/>
 
+    <include file="/liquibase/version/frequency.xml" relativeToChangelogFile="false"/>
+
+    <include file="/liquibase/version/account.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>
