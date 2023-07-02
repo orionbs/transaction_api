@@ -11,7 +11,7 @@ public class CurrencyApiMapper {
     public CurrencySelectionResponse toCurrencySelectionResponse(Currency currency) {
         CurrencySelectionResponse currencySelectionResponse = new CurrencySelectionResponse();
         currencySelectionResponse.setId(currency.getId());
-        currencySelectionResponse.setValue(currency.getCurrencyEnum().toString());
+        currencySelectionResponse.setCode(currency.getCurrencyEnum().toString());
         return currencySelectionResponse;
     }
 

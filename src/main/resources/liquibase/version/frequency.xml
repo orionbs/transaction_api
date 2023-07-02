@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Frequency Schema -->
+    <changeSet id="frequency-schema" author="Orion Beauny-Sugot">
+
+        <createTable tableName="frequency">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_frequency"/>
+            </column>
+            <column name="value" type="varchar(50)">
+                <constraints nullable="false" notNullConstraintName="nn_frequency_value"
+                             unique="true" uniqueConstraintName="uq_frequency_value"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <!-- Frequency Data -->
+    <changeSet id="category-data" author="Orion Beauny-Sugot">
+
+        <insert tableName="frequency" dbms="mysql">
+            <column name="value" value="HALF_YEARLY"/>
+        </insert>
+
+        <insert tableName="frequency" dbms="mysql">
+            <column name="value" value="QUARTERLY"/>
+        </insert>
+
+        <insert tableName="frequency" dbms="mysql">
+            <column name="value" value="MONTHLY"/>
+        </insert>
+
+        <insert tableName="frequency" dbms="mysql">
+            <column name="value" value="WEEKLY"/>
+        </insert>
+
+        <insert tableName="frequency" dbms="mysql">
+            <column name="value" value="UNIQUE"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Account Schema -->
+    <changeSet id="account-schema" author="Orion Beauny-Sugot">
+
+        <createTable tableName="account">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account"/>
+            </column>
+            <column name="name" type="varchar(20)">
+                <constraints nullable="false" notNullConstraintName="nn_account_name"/>
+            </column>
+            <column name="description" type="varchar(500)">
+                <constraints nullable="false" notNullConstraintName="nn_account_description"/>
+            </column>
+            <column name="currency_id" type="integer">
+                <constraints nullable="false" notNullConstraintName="nn_account_currency_id"/>
+            </column>
+            <column name="owner_id" type="varchar(100)">
+                <constraints nullable="false" notNullConstraintName="nn_account_owner_id"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="account"
+                                 baseColumnNames="currency_id"
+                                 constraintName="fk_account_currency"
+                                 referencedTableName="currency"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>

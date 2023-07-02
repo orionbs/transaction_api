@@ -2,7 +2,7 @@ package fr.orionbs.transaction_manager.adapter.input.api.category.specification;
 
 
 import fr.orionbs.transaction_manager.adapter.input.api.category.data.CategoryException;
-import fr.orionbs.transaction_manager.adapter.input.api.category.data.CategorySelectionResponse;
+import fr.orionbs.transaction_manager.adapter.input.api.category.data.GetCategoryResponse;
 import fr.orionbs.transaction_manager.domain.exception.UnknownCategoryException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,14 +26,14 @@ public interface CategoryApi {
     @ApiResponse(description = "Success, you obtain all categories.", responseCode = "200")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    List<CategorySelectionResponse> getCategories(Authentication authentication);
+    List<GetCategoryResponse> getCategories(Authentication authentication);
 
     @Operation(summary = "Obtain a category by his id.")
     @ApiResponse(description = "Success, you obtain a category.", responseCode = "200")
     @ApiResponse(description = "Failure, unknown category.", responseCode = "404", content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = CategoryException.class))})
     @GetMapping(path = "/{categoryId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    CategorySelectionResponse getCategoryById(@PathVariable Integer categoryId) throws UnknownCategoryException;
+    GetCategoryResponse getCategoryById(@PathVariable Integer categoryId) throws UnknownCategoryException;
 
     @ExceptionHandler(UnknownCategoryException.class)
     @ResponseStatus(code = HttpStatus.NOT_FOUND)

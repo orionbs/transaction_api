@@ -1,7 +1,7 @@
 package fr.orionbs.transaction_manager.adapter.input.api.category;
 
 import fr.orionbs.transaction_manager.adapter.input.api.category.data.CategoryException;
-import fr.orionbs.transaction_manager.adapter.input.api.category.data.CategorySelectionResponse;
+import fr.orionbs.transaction_manager.adapter.input.api.category.data.GetCategoryResponse;
 import fr.orionbs.transaction_manager.adapter.input.api.category.mapper.CategoryApiMapper;
 import fr.orionbs.transaction_manager.adapter.input.api.category.specification.CategoryApi;
 import fr.orionbs.transaction_manager.application.input.GetCategoryUseCase;
@@ -23,7 +23,7 @@ public class CategoryApiAdapter implements CategoryApi {
     private final CategoryApiMapper categoryApiMapper;
 
     @Override
-    public List<CategorySelectionResponse> getCategories(Authentication authentication) {
+    public List<GetCategoryResponse> getCategories(Authentication authentication) {
         return getCategoryUseCase
                 .getCategories()
                 .stream()
@@ -32,7 +32,7 @@ public class CategoryApiAdapter implements CategoryApi {
     }
 
     @Override
-    public CategorySelectionResponse getCategoryById(Integer categoryId) throws UnknownCategoryException {
+    public GetCategoryResponse getCategoryById(Integer categoryId) throws UnknownCategoryException {
         return categoryApiMapper.toCategorySelectionResponse(getCategoryUseCase.getCategoryById(categoryId));
     }
 
