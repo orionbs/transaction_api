@@ -2,10 +2,10 @@
 
 ## Introduction
 
-This project is made to handle user management on all my other project.
+This project is made to handle owner management on all my other project.
 
-* Registration of user
-* Authentication of user
+* Registration of owner
+* Authentication of owner
 * Password encryption
 * Password history
 * Locking of users

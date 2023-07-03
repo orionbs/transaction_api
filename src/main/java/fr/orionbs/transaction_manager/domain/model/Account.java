@@ -12,5 +12,5 @@ public class Account {
     private String description;
     private Currency currency;
     private List<Transaction> transactions = new ArrayList<>();
-    private User owner;
+    private Owner owner;
 }

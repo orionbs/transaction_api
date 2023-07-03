@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <!-- Transaction Schema -->
+    <changeSet id="transaction-schema" author="Orion Beauny-Sugot">
+
+        <createTable tableName="transaction">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account"/>
+            </column>
+            <column name="label" type="varchar(20)">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_label"/>
+            </column>
+            <column name="description" type="varchar(100)">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_description"/>
+            </column>
+            <column name="milestone" type="datetime">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_milestone"/>
+            </column>
+            <column name="amount" type="java.math.BigDecimal">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_amount"/>
+            </column>
+            <column name="category_id" type="integer">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_category_id"/>
+            </column>
+            <column name="frequency_id" type="integer">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_frequency_id"/>
+            </column>
+            <column name="account_id" type="integer">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_account_id"/>
+            </column>
+            <column name="owner_id" type="varchar(100)">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_owner_id"/>
+            </column>
+            <column name="owner_email" type="varchar(100)">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_owner_email"/>
+            </column>
+            <column name="owner_full_name" type="varchar(100)">
+                <constraints nullable="false" notNullConstraintName="nn_transaction_owner_full_name"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="transaction"
+                                 baseColumnNames="category_id"
+                                 constraintName="fk_transaction_category"
+                                 referencedTableName="category"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="transaction"
+                                 baseColumnNames="frequency_id"
+                                 constraintName="fk_transaction_frequency"
+                                 referencedTableName="frequency"
+                                 referencedColumnNames="id"/>
+
+        <addForeignKeyConstraint baseTableName="transaction"
+                                 baseColumnNames="account_id"
+                                 constraintName="fk_transaction_account"
+                                 referencedTableName="account"
+                                 referencedColumnNames="id"/>
+
+    </changeSet>
+
+</databaseChangeLog>
