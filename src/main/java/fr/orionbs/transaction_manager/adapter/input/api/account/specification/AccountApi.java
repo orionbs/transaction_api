@@ -31,20 +31,20 @@ public interface AccountApi {
     @ApiResponse(description = "Success, you obtain all accounts", responseCode = "200")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    List<GetAccountResponse> getAccounts(Authentication authentication);
+    List<GetAccountResponse> getAccounts();
 
     @Operation(summary = "Obtain an account by his id.")
     @ApiResponse(description = "Success, you obtain a account.", responseCode = "200")
     @ApiResponse(description = "Failure, unknown account.", responseCode = "404", content = {@Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = AccountException.class))})
     @GetMapping(path = "/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.OK)
-    GetAccountResponse getAccountById(@PathVariable Integer accountId, Authentication authentication) throws UnknownAccountException;
+    GetAccountResponse getAccountById(@PathVariable Integer accountId) throws UnknownAccountException;
 
     @Operation(summary = "Create an account")
     @ApiResponse(description = "Success, you create an account.", responseCode = "201")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.CREATED)
-    PostAccountResponse postAccount(@RequestBody PostAccountRequest postAccountRequest, Authentication authentication) throws UnknownCurrencyPersistenceException, FailedAccountPersistenceException, UnknownCurrencyException, FailedAccountException;
+    PostAccountResponse postAccount(@RequestBody PostAccountRequest postAccountRequest) throws UnknownCurrencyPersistenceException, FailedAccountPersistenceException, UnknownCurrencyException, FailedAccountException;
 
     @ExceptionHandler(UnknownAccountException.class)
     @ResponseStatus(code = HttpStatus.OK)

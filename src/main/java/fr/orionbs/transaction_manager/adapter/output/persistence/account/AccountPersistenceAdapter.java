@@ -8,6 +8,7 @@ import fr.orionbs.transaction_manager.adapter.output.persistence.account.reposit
 import fr.orionbs.transaction_manager.adapter.output.persistence.currency.entity.CurrencyEntity;
 import fr.orionbs.transaction_manager.adapter.output.persistence.currency.exception.UnknownCurrencyPersistenceException;
 import fr.orionbs.transaction_manager.adapter.output.persistence.currency.repository.CurrencyRepository;
+import fr.orionbs.transaction_manager.adapter.output.persistence.owner.entity.OwnerEntity;
 import fr.orionbs.transaction_manager.application.output.InsertAccountPort;
 import fr.orionbs.transaction_manager.application.output.SelectAccountPort;
 import fr.orionbs.transaction_manager.domain.model.Account;
@@ -33,7 +34,12 @@ public class AccountPersistenceAdapter implements InsertAccountPort, SelectAccou
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setName(account.getName());
         accountEntity.setDescription(account.getDescription());
-        accountEntity.setOwnerId(account.getOwner().getId());
+
+        OwnerEntity ownerEntity = new OwnerEntity();
+        ownerEntity.setId(account.getOwner().getId());
+        ownerEntity.setEmail(account.getOwner().getEmail());
+        ownerEntity.setFullName(account.getOwner().getFullName());
+        accountEntity.setOwner(ownerEntity);
 
         CurrencyEntity currencyEntity = currencyRepository
                 .findById(account.getCurrency().getId())

@@ -1,6 +1,7 @@
 package fr.orionbs.transaction_manager.adapter.output.persistence.account.entity;
 
 import fr.orionbs.transaction_manager.adapter.output.persistence.currency.entity.CurrencyEntity;
+import fr.orionbs.transaction_manager.adapter.output.persistence.owner.entity.OwnerEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
@@ -30,8 +31,8 @@ public class AccountEntity {
     @ToString.Exclude
     private CurrencyEntity currency;
 
-    @Column(name = "owner_id", nullable = false, updatable = false)
-    private String ownerId;
+    @Embedded
+    private OwnerEntity owner;
 
     @Override
     public final boolean equals(Object o) {

@@ -2,6 +2,7 @@ package fr.orionbs.transaction_manager.domain.model;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,5 +13,6 @@ public class Account {
     private String description;
     private Currency currency;
     private List<Transaction> transactions = new ArrayList<>();
-    private User owner;
+    private Owner owner;
+    private BigDecimal balance;
 }

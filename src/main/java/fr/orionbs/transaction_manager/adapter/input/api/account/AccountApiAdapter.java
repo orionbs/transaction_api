@@ -31,28 +31,28 @@ public class AccountApiAdapter implements AccountApi {
     private final AccountApiMapper accountApiMapper;
 
     @Override
-    public List<GetAccountResponse> getAccounts(Authentication authentication) {
+    public List<GetAccountResponse> getAccounts() {
         return getAccountUseCase
-                .getAccounts(authentication)
+                .getAccounts()
                 .stream()
                 .map(accountApiMapper::toGetAccountResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public GetAccountResponse getAccountById(Integer accountId, Authentication authentication) throws UnknownAccountException {
-        return accountApiMapper.toGetAccountResponse(getAccountUseCase.getAccountById(accountId, authentication));
+    public GetAccountResponse getAccountById(Integer accountId) throws UnknownAccountException {
+        return accountApiMapper.toGetAccountResponse(getAccountUseCase.getAccountById(accountId));
     }
 
     @Override
-    public PostAccountResponse postAccount(PostAccountRequest postAccountRequest, Authentication authentication) throws UnknownCurrencyException, FailedAccountException {
+    public PostAccountResponse postAccount(PostAccountRequest postAccountRequest) throws UnknownCurrencyException, FailedAccountException {
         Account account = new Account();
         account.setName(postAccountRequest.getName());
         account.setDescription(postAccountRequest.getDescription());
         Currency currency = new Currency();
-        currency.setId(postAccountRequest.getCurrency().getId());
+        currency.setId(postAccountRequest.getCurrencyId());
         account.setCurrency(currency);
-        return accountApiMapper.toPostAccountResponse(postAccountUseCase.postAccount(account, authentication));
+        return accountApiMapper.toPostAccountResponse(postAccountUseCase.postAccount(account));
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import java.util.List;
 
 public interface GetAccountUseCase {
-    List<Account> getAccounts(Authentication authentication);
+    List<Account> getAccounts();
 
-    Account getAccountById(Integer accountId, Authentication authentication) throws UnknownAccountException;
+    Account getAccountById(Integer accountId) throws UnknownAccountException;
 }

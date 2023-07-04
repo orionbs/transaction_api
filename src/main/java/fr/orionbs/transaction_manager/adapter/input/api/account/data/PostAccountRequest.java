@@ -10,13 +10,6 @@ public class PostAccountRequest {
     private String name;
     @NotBlank(message = "{post_account_description_not-blank}")
     private String description;
-    @NotNull(message = "{post_account_currency_not-null}")
-    private Currency currency;
-
-    @Data
-    public class Currency {
-        @NotNull(message = "{post_account_currency_id_not-null}")
-        private Integer id;
-    }
-
+    @NotNull(message = "{post_account_currency_id_not-null}")
+    private Integer currencyId;
 }

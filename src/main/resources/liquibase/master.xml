@@ -12,4 +12,6 @@
 
     <include file="/liquibase/version/account.xml" relativeToChangelogFile="false"/>
 
+    <include file="/liquibase/version/transaction.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

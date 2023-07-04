@@ -4,13 +4,12 @@ import fr.orionbs.transaction_manager.adapter.output.persistence.account.excepti
 import fr.orionbs.transaction_manager.adapter.output.persistence.currency.exception.UnknownCurrencyPersistenceException;
 import fr.orionbs.transaction_manager.application.input.PostAccountUseCase;
 import fr.orionbs.transaction_manager.application.output.InsertAccountPort;
+import fr.orionbs.transaction_manager.application.output.SelectOwnerPort;
 import fr.orionbs.transaction_manager.domain.exception.FailedAccountException;
 import fr.orionbs.transaction_manager.domain.exception.UnknownCurrencyException;
 import fr.orionbs.transaction_manager.domain.model.Account;
-import fr.orionbs.transaction_manager.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,13 +17,11 @@ import org.springframework.stereotype.Service;
 public class PostAccountService implements PostAccountUseCase {
 
     private final InsertAccountPort insertAccountPort;
+    private final SelectOwnerPort selectOwnerPort;
 
     @Override
-    public Account postAccount(Account account, Authentication authentication) throws UnknownCurrencyException, FailedAccountException {
-        Jwt jwt = (Jwt) authentication.getPrincipal();
-        User user = new User();
-        user.setId(jwt.getSubject());
-        account.setOwner(user);
+    public Account postAccount(Account account) throws UnknownCurrencyException, FailedAccountException {
+        account.setOwner(selectOwnerPort.selectOwner());
         try {
             return insertAccountPort.insertAccount(account);
         } catch (UnknownCurrencyPersistenceException e) {
@@ -33,4 +30,5 @@ public class PostAccountService implements PostAccountUseCase {
             throw new FailedAccountException();
         }
     }
+
 }

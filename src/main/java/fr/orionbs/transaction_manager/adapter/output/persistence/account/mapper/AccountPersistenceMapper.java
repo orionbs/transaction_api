@@ -2,8 +2,8 @@ package fr.orionbs.transaction_manager.adapter.output.persistence.account.mapper
 
 import fr.orionbs.transaction_manager.adapter.output.persistence.account.entity.AccountEntity;
 import fr.orionbs.transaction_manager.adapter.output.persistence.currency.mapper.CurrencyPersistenceMapper;
+import fr.orionbs.transaction_manager.adapter.output.persistence.owner.mapper.OwnerPersistenceMapper;
 import fr.orionbs.transaction_manager.domain.model.Account;
-import fr.orionbs.transaction_manager.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class AccountPersistenceMapper {
 
     private final CurrencyPersistenceMapper currencyPersistenceMapper;
+    private final OwnerPersistenceMapper ownerPersistenceMapper;
 
     public Account toAccount(AccountEntity accountEntity) {
         Account account = new Account();
@@ -21,9 +22,9 @@ public class AccountPersistenceMapper {
         if (accountEntity.getCurrency() != null) {
             account.setCurrency(currencyPersistenceMapper.toCurrency(accountEntity.getCurrency()));
         }
-        User user = new User();
-        user.setId(accountEntity.getOwnerId());
-        account.setOwner(user);
+        if (accountEntity.getOwner() != null) {
+            account.setOwner(ownerPersistenceMapper.toOwner(accountEntity.getOwner()));
+        }
         return account;
     }
 
