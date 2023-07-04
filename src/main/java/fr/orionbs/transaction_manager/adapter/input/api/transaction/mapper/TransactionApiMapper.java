@@ -16,9 +16,9 @@ public class TransactionApiMapper {
         postTransactionResponse.setAmount(transaction.getAmount());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         postTransactionResponse.setMilestone(transaction.getMilestone().format(dateTimeFormatter));
-        postTransactionResponse.getCategory().setId(transaction.getCategory().getId());
-        postTransactionResponse.getAccount().setId(transaction.getAccount().getId());
-        postTransactionResponse.getFrequency().setId(transaction.getFrequency().getId());
+        postTransactionResponse.setCategory(transaction.getCategory().getCategoryEnum().toString());
+        postTransactionResponse.setAccount(transaction.getAccount().getName());
+        postTransactionResponse.setFrequency(transaction.getFrequency().getFrequencyEnum().toString());
         return postTransactionResponse;
     }
 

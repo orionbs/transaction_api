@@ -50,7 +50,7 @@ public class AccountApiAdapter implements AccountApi {
         account.setName(postAccountRequest.getName());
         account.setDescription(postAccountRequest.getDescription());
         Currency currency = new Currency();
-        currency.setId(postAccountRequest.getCurrency().getId());
+        currency.setId(postAccountRequest.getCurrencyId());
         account.setCurrency(currency);
         return accountApiMapper.toPostAccountResponse(postAccountUseCase.postAccount(account));
     }

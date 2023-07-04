@@ -15,6 +15,7 @@ public class AccountApiMapper {
         getAccountResponse.setId(account.getId());
         getAccountResponse.setName(account.getName());
         getAccountResponse.setDescription(account.getDescription());
+        getAccountResponse.setBalance(account.getBalance());
         if (account.getCurrency() != null) {
             Currency currency = account.getCurrency();
             getAccountResponse.setCurrencyCode(currency.getCurrencyEnum().toString());

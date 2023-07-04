@@ -34,13 +34,13 @@ public class TransactionApiAdapter implements TransactionApi {
         transaction.setMilestone(LocalDateTime.parse(postTransactionRequest.getMilestone(), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         transaction.setAmount(postTransactionRequest.getAmount());
         Category category = new Category();
-        category.setId(postTransactionRequest.getCategory().getId());
+        category.setId(postTransactionRequest.getCategoryId());
         transaction.setCategory(category);
         Frequency frequency = new Frequency();
-        frequency.setId(postTransactionRequest.getFrequency().getId());
+        frequency.setId(postTransactionRequest.getFrequencyId());
         transaction.setFrequency(frequency);
         Account account = new Account();
-        account.setId(postTransactionRequest.getAccount().getId());
+        account.setId(postTransactionRequest.getAccountId());
         transaction.setAccount(account);
         return transactionApiMapper.toPostTransactionResponse(postTransactionUseCase.postTransaction(transaction));
     }
