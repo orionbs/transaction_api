@@ -1,0 +1,12 @@
+package fr.orionbs.transaction_manager_server.application.output;
+
+import fr.orionbs.transaction_manager_server.adapter.output.persistence.account.exception.UnknownAccountPersistenceException;
+import fr.orionbs.transaction_manager_server.adapter.output.persistence.category.exception.UnknownCategoryPersistenceException;
+import fr.orionbs.transaction_manager_server.adapter.output.persistence.frequency.exception.UnknownFrequencyPersistenceException;
+import fr.orionbs.transaction_manager_server.adapter.output.persistence.transaction.exception.FailedTransactionPersistenceException;
+import fr.orionbs.transaction_manager_server.domain.model.Transaction;
+
+public interface InsertTransactionPort {
+
+    Transaction insertTransaction(Transaction transaction) throws UnknownCategoryPersistenceException, UnknownFrequencyPersistenceException, UnknownAccountPersistenceException, FailedTransactionPersistenceException;
+}
