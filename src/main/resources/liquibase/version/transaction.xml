@@ -9,7 +9,7 @@
 
         <createTable tableName="transaction">
             <column name="id" type="integer" autoIncrement="true">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_transaction"/>
             </column>
             <column name="label" type="varchar(20)">
                 <constraints nullable="false" notNullConstraintName="nn_transaction_label"/>

@@ -20,7 +20,7 @@
     </changeSet>
 
     <!-- Frequency Data -->
-    <changeSet id="category-data" author="Orion Beauny-Sugot">
+    <changeSet id="frequency-data" author="Orion Beauny-Sugot">
 
         <insert tableName="frequency" dbms="mysql">
             <column name="value" value="HALF_YEARLY"/>
