@@ -15,10 +15,7 @@ spring:
           jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
 
 server:
-  address: 127.0.0.1
   port: 8080
-  servlet:
-    context-path: /
 
 springdoc:
   swagger-ui:
