@@ -20,6 +20,8 @@ import fr.orionbs.transaction_manager_server.domain.model.Transaction;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -81,8 +83,11 @@ public class TransactionPersistenceAdapter implements InsertTransactionPort, Sel
     }
 
     @Override
-    public List<Transaction> selectTransactions(String ownerId) {
-        return null;
+    @Transactional(rollbackOn = Throwable.class)
+    public Page<Transaction> selectTransactions(String ownerId, Pageable pageable) {
+        return transactionRepository
+                .findTransactionEntitiesByOwnerId(ownerId, pageable)
+                .map(transactionPersistenceMapper::toTransaction);
     }
 
     @Override

@@ -1,9 +1,11 @@
 package fr.orionbs.transaction_manager_server.adapter.input.api.transaction;
 
+import fr.orionbs.transaction_manager_server.adapter.input.api.transaction.data.GetTransactionResponse;
 import fr.orionbs.transaction_manager_server.adapter.input.api.transaction.data.PostTransactionRequest;
 import fr.orionbs.transaction_manager_server.adapter.input.api.transaction.data.PostTransactionResponse;
 import fr.orionbs.transaction_manager_server.adapter.input.api.transaction.mapper.TransactionApiMapper;
 import fr.orionbs.transaction_manager_server.adapter.input.api.transaction.specification.TransactionApi;
+import fr.orionbs.transaction_manager_server.application.input.GetTransactionUseCase;
 import fr.orionbs.transaction_manager_server.application.input.PostTransactionUseCase;
 import fr.orionbs.transaction_manager_server.domain.exception.FailedTransactionException;
 import fr.orionbs.transaction_manager_server.domain.exception.UnknownAccountException;
@@ -14,6 +16,8 @@ import fr.orionbs.transaction_manager_server.domain.model.Category;
 import fr.orionbs.transaction_manager_server.domain.model.Frequency;
 import fr.orionbs.transaction_manager_server.domain.model.Transaction;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -24,10 +28,11 @@ import java.time.format.DateTimeFormatter;
 public class TransactionApiAdapter implements TransactionApi {
 
     private final PostTransactionUseCase postTransactionUseCase;
+    private final GetTransactionUseCase getTransactionUseCase;
     private final TransactionApiMapper transactionApiMapper;
 
     @Override
-    public PostTransactionResponse postAccount(PostTransactionRequest postTransactionRequest) throws FailedTransactionException, UnknownCategoryException, UnknownAccountException, UnknownFrequencyException {
+    public PostTransactionResponse postTransaction(PostTransactionRequest postTransactionRequest) throws FailedTransactionException, UnknownCategoryException, UnknownAccountException, UnknownFrequencyException {
         Transaction transaction = new Transaction();
         transaction.setLabel(postTransactionRequest.getLabel());
         transaction.setDescription(postTransactionRequest.getDescription());
@@ -43,5 +48,12 @@ public class TransactionApiAdapter implements TransactionApi {
         account.setId(postTransactionRequest.getAccountId());
         transaction.setAccount(account);
         return transactionApiMapper.toPostTransactionResponse(postTransactionUseCase.postTransaction(transaction));
+    }
+
+    @Override
+    public Page<GetTransactionResponse> getTransactions(Pageable pageable) {
+        return getTransactionUseCase
+                .getTransactions(pageable)
+                .map(transactionApiMapper::toGetTransactionResponse);
     }
 }
