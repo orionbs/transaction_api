@@ -34,7 +34,7 @@ public class SecurityConfiguration {
 
         httpSecurity.authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
             authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.GET, "/v3/api-docs/**", "/swagger-ui/**").permitAll();
-            authorizationManagerRequestMatcherRegistry.requestMatchers("/actuator/**");
+            authorizationManagerRequestMatcherRegistry.requestMatchers("/actuator/**").permitAll();
         });
 
 
